@@ -1,15 +1,29 @@
 import XCTest
-@testable import NetworkService
+import RxSwift
+import RxBlocking
+import NetworkService
 
 final class NetworkServiceTests: XCTestCase {
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(NetworkService().text, "Hello, World!")
+		let urlString = "https://jsonplaceholder.typicode.com/todos"
+		
+		let request = NetworkRequest(url: urlString)
+		
+		let observable: Observable<[TodoModel]> = NetworkService()
+			.execute(request: request)
+			
+		let result = try? observable.toBlocking().first()
+		XCTAssertEqual(result?.isEmpty, false)
     }
 
     static var allTests = [
         ("testExample", testExample),
     ]
+	
+	struct TodoModel: Decodable {
+		let id: Int
+		let userId: Int
+		let title: String
+		let completed: Bool
+	}
 }
