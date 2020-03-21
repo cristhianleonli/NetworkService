@@ -23,3 +23,15 @@ public struct HttpResponse {
 		self.headerFields = httpUrlResponse.allHeaderFields as? [String: String]
 	}
 }
+
+extension HttpResponse: CustomStringConvertible {
+	public var description: String {
+		let response: [String: String] = [
+			"url": url.absoluteString,
+			"code": "\(responseCode)",
+			"headers": headerFields?.description ?? "[:]"
+		]
+		
+		return response.description
+	}
+}
