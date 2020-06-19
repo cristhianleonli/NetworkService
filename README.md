@@ -2,8 +2,8 @@
 
 This module wraps network service calls, it takes a `NetworkRequest` and executes it. It uses RxSwift to return the fetched data. To transform the response data, the observable type must be specified, once the data successfully comes back from the network call, it gets parsed using `Codable`.
 
-`public init(resolver: NetworkResolver)`
-`public func execute<T: Decodable>(request: NetworkRequest) -> Observable<T>`
+- `public init(resolver: NetworkResolver)`
+- `public func execute<T: Decodable>(request: NetworkRequest) -> Observable<T>`
 
 As you can see in the init function, you can specify the `NetworkResolver` with which the network service will perform the network call. By default, it uses `DefaultNetworkResolver` which uses URLSession.
 
